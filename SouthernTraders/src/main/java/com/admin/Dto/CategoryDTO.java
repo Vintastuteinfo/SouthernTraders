@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 public class CategoryDTO {
-	
+
 	private Long categoryId;
 	private String categoryName;
 	private String Description;

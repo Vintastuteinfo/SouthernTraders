@@ -1,11 +1,11 @@
 package com.admin.controller;
 
-
 import java.util.List;
 
 // Importing required classes
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,39 +23,29 @@ import com.admin.service.CategoryService;
 public class CategoryController {
 
 	// Annotation
-	@Autowired 
+	@Autowired
 	private CategoryService categoryService;
 
 	// Save operation
 	@PostMapping("/save")
-	public CategoryDTO saveCategory(@RequestBody CategoryDTO categoryDTO)
-	{
+	public CategoryDTO saveCategory(@RequestBody CategoryDTO categoryDTO) {
 		return categoryService.saveCategory(categoryDTO);
 	}
-	
-	 @GetMapping("/departments")
-	 public List<Category> fetchCategoryList() {
-		  return categoryService.fetchCategoryIdList(); }
 
-	/*
-	 * // Read operation
-	 * 
-	 * @GetMapping("/departments") public List<Department> fetchDepartmentList() {
-	 * return departmentService.fetchDepartmentList(); }
-	 * 
-	 * // Update operation
-	 * 
-	 * @PutMapping("/departments/{id}") public Department
-	 * updateDepartment(@RequestBody Department department,
-	 * 
-	 * @PathVariable("id") Long departmentId) { return
-	 * departmentService.updateDepartment( department, departmentId); }
-	 * 
-	 * // Delete operation
-	 * 
-	 * @DeleteMapping("/departments/{id}") public String
-	 * deleteDepartmentById(@PathVariable("id") Long departmentId) {
-	 * departmentService.deleteDepartmentById( departmentId); return
-	 * "Deleted Successfully"; }
-	 */
+	@PostMapping(path = "/all")
+	public List<Category> fetchCategoryList() {
+		return categoryService.fetchCategoryIdList();
+	}
+
+	@PostMapping(path = "/update/{id}")
+	public Object updateCategory(@PathVariable("id") String requestId,
+			@RequestBody Category category) {
+		return categoryService.updateCategory(category);
+	}
+
+	@DeleteMapping(path = "/delete/{id}")
+	public Object deleteCategory(@PathVariable("id") long categoryId) {
+
+		return categoryService.deleteCategory(categoryId);
+	}
 }

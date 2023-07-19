@@ -6,16 +6,14 @@ import com.admin.Dto.CategoryDTO;
 import com.admin.entity.Category;
 
 public interface CategoryService {
-	
-	 // Save operation
+
+	// Save operation
 	CategoryDTO saveCategory(CategoryDTO categoryDTO);
+
 	List<Category> fetchCategoryIdList();
- 
-	/*
-	 * // Read operation List<Category> fetchCategoryIdList();
-	 * 
-	 * // Update operation Category updateCategory(Category category, Long
-	 * categoryId);
-	 */
+
+	Category updateCategory(Category category);
+
+	String deleteCategory(long categoryId);
 
 }

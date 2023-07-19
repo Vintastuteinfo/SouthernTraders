@@ -1,6 +1,6 @@
 package com.admin.entity;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,8 +24,9 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "category_id", insertable = false, updatable = false, nullable = false)
 	private Long categoryId;
 	private String categoryName;
-	private String Descrition;
+	private String description;
 	private String isActive;
 }

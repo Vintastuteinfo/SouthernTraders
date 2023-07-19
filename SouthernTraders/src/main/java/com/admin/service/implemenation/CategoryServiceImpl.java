@@ -17,8 +17,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	private ModelMapper modelMapper;
-
 	// Save operation
 	@Override
 	public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
@@ -26,50 +24,35 @@ public class CategoryServiceImpl implements CategoryService {
 		return convertcategoryDTO(category);
 	}
 
-	private CategoryDTO convertcategoryDTO(Category category) {
+	@Override
+	public List<Category> fetchCategoryIdList() {
+		return categoryRepository.findAll();
 
+	}
+
+	@Override
+	public Category updateCategory(Category category) {
+
+		return categoryRepository.save(category);
+	}
+
+	@Override
+	public String deleteCategory(long categoryId) {
+		categoryRepository.deleteById(categoryId);
+		return "Success";
+	}
+
+	private CategoryDTO convertcategoryDTO(Category category) {
+		ModelMapper modelMapper = new ModelMapper();
 		CategoryDTO categorydto = modelMapper.map(category, CategoryDTO.class);
 		return categorydto;
 
 	}
 
 	private Category convertcategoryEntity(CategoryDTO categoryDTO) {
-
+		ModelMapper modelMapper = new ModelMapper();
 		Category category = modelMapper.map(categoryDTO, Category.class);
 		return category;
 
 	}
-	
-	@Override 
-	public List<Category> fetchCategoryIdList() { 
-		return  categoryRepository.findAll(); 
-		
-	}
-	/*
-	 * // Read operation
-	 * 
-	 * @Override public List<Category> fetchCategoryIdList() { return
-	 * (List<Category>) categoryRepository.findAll(); } public
-	 * 
-	 * // Update operation
-	 * 
-	 * @Override public Category updateCategory(Category department,Long
-	 * departmentId) { Category depDB = categoryRepository.findById(departmentId)
-	 * .get();
-	 * 
-	 * 
-	 * if (Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(
-	 * department.getDepartmentName())) { depDB.setDepartmentName(
-	 * department.getDepartmentName()); }
-	 * 
-	 * if (Objects.nonNull( department.getDepartmentAddress()) &&
-	 * !"".equalsIgnoreCase( department.getDepartmentAddress())) {
-	 * depDB.setDepartmentAddress( department.getDepartmentAddress()); }
-	 * 
-	 * if (Objects.nonNull(department.getDepartmentCode()) && !"".equalsIgnoreCase(
-	 * department.getDepartmentCode())) { depDB.setDepartmentCode(
-	 * department.getDepartmentCode()); }
-	 * 
-	 * return categoryRepository.save(depDB); }
-	 */
 }
